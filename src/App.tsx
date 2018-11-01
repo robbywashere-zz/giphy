@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import { client } from "./graphql/client";
+import { ApolloProvider } from "react-apollo";
+import { GifSearch } from "./GifSearch";
+import { InfiniteGifSearchQuery } from "./graphql/GifQuery";
 
-class App extends Component {
-  render() {
-    return <div />;
-  }
-}
+const giphyClient = client();
 
-export default App;
+export default () => (
+  <ApolloProvider client={giphyClient}>
+    <InfiniteGifSearchQuery q="trending" />
+  </ApolloProvider>
+);
