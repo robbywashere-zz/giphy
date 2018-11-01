@@ -8484,7 +8484,7 @@ style-loader@0.23.0:
     stylis-rule-sheet "^0.0.10"
     supports-color "^3.2.3"
 
-"styled-components@>=2.0 || >=3.0":
+"styled-components@>=2.0 || >=3.0", styled-components@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-4.0.3.tgz#6c1a95a93857aa613fdfc26ad40899217100d8c3"
   dependencies:
