@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "lib": [
-      "es5",
-      "es6",
-      "dom",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es5", "es6", "dom", "esnext.asynciterable", "es2017"],
     "jsx": "preserve",
     "strict": true,
     "noImplicitAny": true,
@@ -21,7 +16,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

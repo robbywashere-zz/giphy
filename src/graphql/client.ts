@@ -10,11 +10,7 @@ const restLink = new RestLink({
   customFetch: async (request, params) => {
     let url = new URL(request.toString());
     url.searchParams.append("api_key", API_KEY);
-    let response = await fetch(url.toString(), params).then(r => r.json());
-    let { data, meta, pagination } = response;
-    return new Response(new Blob([JSON.stringify(data)]), {
-      status: meta.status
-    });
+    return fetch(url.toString(), params);
   }
 });
 
