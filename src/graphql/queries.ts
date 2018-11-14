@@ -1,6 +1,9 @@
 import gql from "graphql-tag";
 const GIFFragment = gql`
   fragment GIFFragment on GifObject {
+    status @client {
+      liked
+    }
     type
     id
     slug
@@ -18,6 +21,15 @@ const GIFFragment = gql`
     import_datetime
     trending_datetime
     images
+  }
+`;
+
+export const LIKE_GIF_QUERY = gql`
+  mutation($id: ID!, $liked: Boolean!) {
+    likeGIF(id: $id, liked: $liked) @client {
+      id
+      liked
+    }
   }
 `;
 

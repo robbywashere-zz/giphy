@@ -2,6 +2,7 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { RestLink } from "apollo-link-rest";
 import { ApolloLink } from "apollo-link";
+import { withClientState } from "apollo-link-state";
 
 const API_KEY = "PE0b68UA9uP5tc52x5IHhXvJUWsfriEV";
 
@@ -14,8 +15,33 @@ const restLink = new RestLink({
   }
 });
 
+type toggleLikeType = (A: any, B: any, C: any) => any;
+const cache = new InMemoryCache();
+const stateLink = withClientState({
+  cache,
+  defaults: {
+    status: {
+      liked: false
+    }
+  },
+  resolvers: {
+    Mutation: {
+      toggleLike: (_: any, { status }: any, { cache }: any) => {
+        const data = {
+          status: {
+            __typename: "Status",
+            liked: status.liked
+          }
+        };
+        cache.writeData({ data });
+        return null;
+      }
+    }
+  }
+});
+
 export const client = () =>
   new ApolloClient({
-    link: ApolloLink.from([restLink]),
-    cache: new InMemoryCache()
+    link: ApolloLink.from([stateLink, stateLink]),
+    cache
   });
