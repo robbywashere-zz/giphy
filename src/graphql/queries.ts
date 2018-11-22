@@ -25,11 +25,8 @@ const GIFFragment = gql`
 `;
 
 export const LIKE_GIF_QUERY = gql`
-  mutation($id: ID!, $liked: Boolean!) {
-    likeGIF(id: $id, liked: $liked) @client {
-      id
-      liked
-    }
+  mutation setLike($liked: Boolean!, $id: String) {
+    setLike(liked: $liked, id: $id) @client
   }
 `;
 

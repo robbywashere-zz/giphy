@@ -15,33 +15,37 @@ const restLink = new RestLink({
   }
 });
 
-type toggleLikeType = (A: any, B: any, C: any) => any;
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  //dataIdFromObject: object => object.id || null
+});
+
 const stateLink = withClientState({
   cache,
-  defaults: {
-    status: {
-      liked: false
-    }
-  },
   resolvers: {
     Mutation: {
-      toggleLike: (_: any, { status }: any, { cache }: any) => {
+      setLike: (parent: any, { liked, id }: any, { cache }: any) => {
         const data = {
           status: {
-            __typename: "Status",
-            liked: status.liked
+            liked,
+            __typename: "Status"
           }
         };
-        cache.writeData({ data });
-        return null;
+        cache.writeData({ data, id: `GifObject:${id}` });
+        return { id, liked };
       }
+    }
+  },
+  defaults: {
+    status: {
+      liked: false,
+      __typename: "Status"
     }
   }
 });
 
 export const client = () =>
   new ApolloClient({
-    link: ApolloLink.from([stateLink, stateLink]),
+    connectToDevTools: true,
+    link: ApolloLink.from([stateLink, restLink]),
     cache
   });

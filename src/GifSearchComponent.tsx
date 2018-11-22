@@ -85,8 +85,13 @@ export const InfiniteScroller: InfiniteScrollerType = ({
               response: {
                 ...prev.response,
                 data: !fetchMoreResult
-                  ? [...collection]
-                  : [...prev.response.data, ...fetchMoreResult.response.data]
+                  ? Array.from(new Set(collection))
+                  : Array.from(
+                      new Set([
+                        ...prev.response.data,
+                        ...fetchMoreResult.response.data
+                      ])
+                    )
               }
             })
           });
@@ -139,6 +144,6 @@ const InfiniteGIFSearchQueryComponent: React.SFC<infStateProps> = ({
 );
 
 export const InfiniteGIFSearchQuery = compose<infStateProps, React.SFC>(
-  withState("getQuery", "setQuery", "trending"),
-  withState("getInput", "setInput", "trending")
+  withState("getQuery", "setQuery", "facebook"),
+  withState("getInput", "setInput", "facebook")
 )(InfiniteGIFSearchQueryComponent);
