@@ -1,9 +1,10 @@
 # Giphy 
 
-## Description
+## Description / Features
 
-- Query the Giphy api with React, Typescript, Graphql provided by Apollo Rest
-- Clicking the Giphy image will toggle its liked state and store locally using Apollo link-state
+- Query the Giphy Api with React, Typescript, Graphql provided by Apollo Rest
+- Like an image: Clicking the Giphy image will toggle its liked state and store locally using Apollo link-state
+- Infinite scoll
 
 ## Demo
 
